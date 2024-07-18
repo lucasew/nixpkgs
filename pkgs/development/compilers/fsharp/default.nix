@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "fsharp";
-  version = "4.0.1.1";
+  version = "12.8.0";
 
   src = fetchFromGitHub {
     owner = "dotnet";
     repo = "fsharp";
     rev = "v${version}";
-    sha256 = "sha256-dgTEM2aL8lVjVMuW0+HLc+TUA39IiuBv/RfHYNURh5s=";
+    sha256 = "sha256-vpntjsh9iIziJgRmXHfxDDC/C9sfU2ssuFdnBh2qgIw=";
   };
 
   nativeBuildInputs = [ pkg-config autoconf automake ];
