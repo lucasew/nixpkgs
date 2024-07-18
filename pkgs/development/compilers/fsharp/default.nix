@@ -1,15 +1,15 @@
 # Temporarily avoid dependency on dotnetbuildhelpers to avoid rebuilding many times while working on it
 
-{ lib, stdenv, fetchFromGitHub, mono, pkg-config, dotnetbuildhelpers, autoconf, automake, which }:
+{ lib, stdenv, fetchFromGitHub, mono, pkg-config, dotnetbuildhelpers, autoconf, automake, which, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "fsharp";
   version = "4.0.1.1";
 
   src = fetchFromGitHub {
-    owner = "fsharp";
+    owner = "dotnet";
     repo = "fsharp";
-    rev = version;
+    rev = "v${version}";
     sha256 = "sha256-dgTEM2aL8lVjVMuW0+HLc+TUA39IiuBv/RfHYNURh5s=";
   };
 
@@ -39,6 +39,11 @@ stdenv.mkDerivation rec {
   # To fix this error when running:
   # The file "/nix/store/path/whatever.exe" is an not a valid CIL image
   dontStrip = true;
+
+  passthru.updateScript = gitUpdater {
+    rev-prefix = "v";
+    ignoredVersions = ["beta"];
+  };
 
   meta = {
     description = "Functional CLI language";
